@@ -13,43 +13,57 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float tileSize;
 
     [Header("Player Properties")]
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float walkSpeed;
+    [SerializeField] private float sprintSpeed;
     
 
     // represents the world space position of the center of the tile this player occupies
-    private Vector3 occupiedTile;
+    private Vector3 targetTile;
+
+    // represents the current move speed of the player
+    private float moveSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
         transform.position = gridOffset;
-        occupiedTile = gridOffset;
+        targetTile = gridOffset;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.LeftShift)) {
+            moveSpeed = sprintSpeed;
+        } else {
+            moveSpeed = walkSpeed;
+        }
+
         float xInput = Input.GetAxis("Horizontal");
         float yInput = Input.GetAxis("Vertical");
 
-        if (xInput == 0 && yInput == 0) {
-            if (transform.position != occupiedTile) {
-                transform.position = Vector3.MoveTowards(transform.position, occupiedTile, moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetTile, moveSpeed * Time.deltaTime);
+
+        if (transform.position == targetTile) {
+            if (Mathf.Abs(yInput) == 1f) {
+                targetTile += new Vector3(0f, tileSize * yInput, 0f);
+            } else if (Mathf.Abs(xInput) == 1f) {
+                targetTile += new Vector3(tileSize * xInput, 0f, 0f);
             }
         } else {
-            Vector3 destination = occupiedTile;
-            if (Mathf.Abs(xInput) >= Mathf.Abs(yInput)) {
-                if (transform.position.y == occupiedTile.y) {
-                    destination += new Vector3(tileSize * (Mathf.Abs(xInput) / xInput), 0f, 0f);
+            Vector3 displacement = targetTile - transform.position;
+            if (Mathf.Abs(yInput) == 1f) {
+                if (transform.position.x == targetTile.x) {
+                    if (displacement.y * yInput < 0) {
+                        targetTile += new Vector3(0f, tileSize * yInput, 0f);
+                    }
                 }
-            } else {
-                if (transform.position.x == occupiedTile.x) {
-                    destination += new Vector3(0f, tileSize * (Mathf.Abs(yInput) / yInput), 0f);
+            } else if (Mathf.Abs(xInput) == 1f) {
+                if (transform.position.y == targetTile.y) {
+                    if (displacement.x * xInput < 0) {
+                        targetTile += new Vector3(tileSize * xInput, 0f, 0f);
+                    }
                 }
-            }
-            transform.position = Vector3.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
-            if (Vector3.Distance(transform.position, destination) <= Vector3.Distance(transform.position, occupiedTile)) {
-                occupiedTile = destination;
             }
         }
     }
