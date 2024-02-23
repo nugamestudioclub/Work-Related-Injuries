@@ -18,7 +18,7 @@ public class PlayerMover : MonoBehaviour
     [Header("Player Properties")]
     [SerializeField] private float walkSpeed;
     [SerializeField] private float sprintSpeed;
-    
+
 
     // represents the world space position of the center of the tile this player occupies
     private Vector3 targetTile;
@@ -26,19 +26,26 @@ public class PlayerMover : MonoBehaviour
     // represents the current move speed of the player
     private float moveSpeed;
 
+    // represents the current facing direction of the player
+    private Orientation facing;
+
     // Start is called before the first frame update
     void Start()
     {
         transform.position = gridOffset;
         targetTile = gridOffset;
+        facing = Orientation.East;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift)) {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
             moveSpeed = sprintSpeed;
-        } else {
+        }
+        else
+        {
             moveSpeed = walkSpeed;
         }
 
@@ -47,41 +54,127 @@ public class PlayerMover : MonoBehaviour
 
         transform.position = Vector3.MoveTowards(transform.position, targetTile, moveSpeed * Time.deltaTime);
 
-        if (transform.position == targetTile) {
+        if (onTileCenter())
+        {
             // select next tile mechanic
-            if (Mathf.Abs(yInput) == 1f) {
+            if (Mathf.Abs(yInput) == 1f)
+            {
                 attemptMoveTargetBy(new Vector3(0f, tileSize * yInput, 0f));
-            } else if (Mathf.Abs(xInput) == 1f) {
+            }
+            else if (Mathf.Abs(xInput) == 1f)
+            {
                 attemptMoveTargetBy(new Vector3(tileSize * xInput, 0f, 0f));
             }
-        } else {
+        }
+        else
+        {
             // backup mechanic
             Vector3 displacement = targetTile - transform.position;
-            if (Mathf.Abs(yInput) == 1f) {
-                if (transform.position.x == targetTile.x) {
-                    if (displacement.y * yInput < 0) {
+            if (Mathf.Abs(yInput) == 1f)
+            {
+                if (transform.position.x == targetTile.x)
+                {
+                    if (displacement.y * yInput < 0)
+                    {
                         attemptMoveTargetBy(new Vector3(0f, tileSize * yInput, 0f));
                     }
                 }
-            } else if (Mathf.Abs(xInput) == 1f) {
-                if (transform.position.y == targetTile.y) {
-                    if (displacement.x * xInput < 0) {
+            }
+            else if (Mathf.Abs(xInput) == 1f)
+            {
+                if (transform.position.y == targetTile.y)
+                {
+                    if (displacement.x * xInput < 0)
+                    {
                         attemptMoveTargetBy(new Vector3(tileSize * xInput, 0f, 0f));
                     }
                 }
             }
         }
+
     }
 
-    private void attemptMoveTargetBy(Vector3 relativeMove) {
-        if (targetTileOpen(targetTile + relativeMove)) {
+    private void attemptMoveTargetBy(Vector3 relativeMove)
+    {
+        OrientPlayer(transform.position + relativeMove);
+        if (targetTileOpen(targetTile + relativeMove))
+        {
             targetTile += relativeMove;
-        } else {
+        }
+        else
+        {
             Debug.Log("Move failed");
         }
     }
 
-    private bool targetTileOpen(Vector3 targetPos) {
-        return !Physics2D.OverlapBox(targetPos, new Vector2(0.8f, 0.8f), 0f, wallLayer);
+    public bool targetTileOpen(Vector3 targetPos)
+    {
+        //return !Physics2D.OverlapBox(targetPos, new Vector2(0.8f, 0.8f), 0f, wallLayer);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(targetPos, new Vector2(0.8f, 0.8f), 0f);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
+            {
+                return false;
+            }
+            if (collider.gameObject.name == "Box")
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public bool onTileCenter()
+    {
+        return (transform.position == targetTile);
+    }
+
+    private void OrientPlayer(Vector3 target)
+    {
+        Vector3 displacement = (target - transform.position).normalized;
+        if (Vector3.Dot(displacement, Vector3.right) == 1)
+        {
+            facing = Orientation.East;
+        }
+        else if (Vector3.Dot(displacement, Vector3.left) == 1)
+        {
+            facing = Orientation.West;
+        }
+        else if (Vector3.Dot(displacement, Vector3.up) == 1)
+        {
+            facing = Orientation.North;
+        }
+        else if (Vector3.Dot(displacement, Vector3.down) == 1)
+        {
+            facing = Orientation.South;
+        }
+    }
+
+    public Vector3 GetForwardDisplacement()
+    {
+        switch (facing)
+        {
+            case Orientation.North:
+                return Vector3.up * tileSize;
+            case Orientation.South:
+                return Vector3.down * tileSize;
+            case Orientation.East:
+                return Vector3.right * tileSize;
+            case Orientation.West:
+                return Vector3.left * tileSize;
+            default:
+                return Vector3.zero;
+        }
+    }
+
+    public Vector3 GetForwardPoint()
+    {
+        return transform.position + GetForwardDisplacement();
+    }
+
+    public Orientation GetPlayerOrientation()
+    {
+        return facing;
     }
 }
