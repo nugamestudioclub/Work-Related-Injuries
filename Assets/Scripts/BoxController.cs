@@ -24,9 +24,9 @@ public class BoxController : MonoBehaviour
     void Update()
     {
         // bugs:
-        // doesnt account for edge case of throwing into empty tile with wall in next tile
-        // player can move into space they just threw box into
-        // box doesn't recognize player as a collider which occupies a tile
+        // because collision logic hasn't been implemented yet, it is still possible for
+        // the player and the box to occupy the same tile by them both moving
+        // into one at the same time
 
         if (transform.position != nextTargetTile)
         {
