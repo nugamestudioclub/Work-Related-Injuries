@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class PlayerMover : MonoBehaviour
 {
-    [Header("World Properties")]
-
     // a Vector2 representing the amount of displacement from (0, 0) in world space to the center of the central tile's position in the level
-    [SerializeField] private Vector3 gridOffset;
+    private Vector3 gridOffset;
 
     // the amount of distance between centers of adjacent tiles in world space
-    [SerializeField] private float tileSize;
+    private float tileSize;
 
     [Header("LayerMasks")]
     [SerializeField] private LayerMask wallLayer;
@@ -32,6 +30,9 @@ public class PlayerMover : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gridOffset = LevelManager.gridOffset;
+        tileSize = LevelManager.tileSize;
+
         transform.position = gridOffset;
         targetTile = gridOffset;
         facing = Orientation.East;
@@ -97,7 +98,7 @@ public class PlayerMover : MonoBehaviour
     private void attemptMoveTargetBy(Vector3 relativeMove)
     {
         OrientPlayer(transform.position + relativeMove);
-        if (targetTileOpen(targetTile + relativeMove))
+        if (LevelManager.targetTileOpen(targetTile + relativeMove))
         {
             targetTile += relativeMove;
         }
@@ -105,24 +106,6 @@ public class PlayerMover : MonoBehaviour
         {
             Debug.Log("Move failed");
         }
-    }
-
-    public bool targetTileOpen(Vector3 targetPos)
-    {
-        //return !Physics2D.OverlapBox(targetPos, new Vector2(0.8f, 0.8f), 0f, wallLayer);
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(targetPos, new Vector2(0.8f, 0.8f), 0f);
-        foreach (Collider2D collider in colliders)
-        {
-            if (collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
-            {
-                return false;
-            }
-            if (collider.gameObject.name == "Box")
-            {
-                return false;
-            }
-        }
-        return true;
     }
 
     public bool onTileCenter()
@@ -151,6 +134,8 @@ public class PlayerMover : MonoBehaviour
         }
     }
 
+    // returns a vector representing the relative position of the center
+    // of the tile that the player is facing
     public Vector3 GetForwardDisplacement()
     {
         switch (facing)
@@ -176,5 +161,10 @@ public class PlayerMover : MonoBehaviour
     public Orientation GetPlayerOrientation()
     {
         return facing;
+    }
+
+    public bool ForwardTileOpen()
+    {
+        return LevelManager.targetTileOpen(GetForwardPoint());
     }
 }

@@ -53,7 +53,7 @@ public class PlayerInventory : MonoBehaviour
         }
         else
         {
-            if (Input.GetKey(KeyCode.E) && mover.onTileCenter() && mover.targetTileOpen(mover.GetForwardPoint()) && pickupOver)
+            if (Input.GetKey(KeyCode.E) && mover.onTileCenter() && mover.ForwardTileOpen() && pickupOver)
             {
                 chargedDistance = Mathf.MoveTowards(chargedDistance, maxDistance, chargeRate * Time.deltaTime);
             }
@@ -61,17 +61,23 @@ public class PlayerInventory : MonoBehaviour
             {
                 if (chargedDistance > 0f)
                 {
-                    int throwDistance = Mathf.RoundToInt(chargedDistance);
+                    int throwDistance = Mathf.FloorToInt(chargedDistance);
                     chargedDistance = 0f;
 
+                    /*
                     if (throwDistance == 0)
                     {
                         throwDistance = 1;
                     }
+                    */
 
-                    heldObject.transform.position = transform.position + mover.GetForwardDisplacement() * throwDistance;
-                    heldObject.SetActive(true);
-                    heldObject = null;
+                    if (mover.ForwardTileOpen())
+                    {
+                        heldObject.transform.position = transform.position + mover.GetForwardDisplacement();
+                        heldObject.GetComponent<BoxController>().giveTrajectory(mover.GetForwardDisplacement().normalized * throwDistance);
+                        heldObject.SetActive(true);
+                        heldObject = null;
+                    }
                 }
             }
         }

@@ -663,9 +663,10 @@ GameObject:
   - component: {fileID: 707250124}
   - component: {fileID: 707250125}
   - component: {fileID: 707250126}
+  - component: {fileID: 707250127}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -679,7 +680,7 @@ Transform:
   m_GameObject: {fileID: 707250121}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.512, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -698,8 +699,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e36a9764e1e4fd09470275879f30ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridOffset: {x: 0.5, y: 0.5, z: 0}
-  tileSize: 1
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -718,7 +717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 5
-  chargeRate: 1
+  chargeRate: 10
   depleteRate: 1
 --- !u!114 &707250126
 MonoBehaviour:
@@ -736,6 +735,51 @@ MonoBehaviour:
   facingDown: {fileID: -1074817598, guid: a94a555df1cff4cc1b091c9d28870e6e, type: 3}
   facingLeft: {fileID: 2010736788, guid: a94a555df1cff4cc1b091c9d28870e6e, type: 3}
   facingRight: {fileID: -624687756, guid: a94a555df1cff4cc1b091c9d28870e6e, type: 3}
+--- !u!61 &707250127
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707250121}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.9}
+  m_EdgeRadius: 0
 --- !u!1 &729854137
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,6 +1013,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1162340882}
   - component: {fileID: 1162340883}
+  - component: {fileID: 1162340884}
   m_Layer: 6
   m_Name: Box
   m_TagString: Untagged
@@ -1037,6 +1082,65 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
+--- !u!114 &1162340884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162340881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b22da75fa264417a5050dbc1d4d511, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwSpeed: 10
+--- !u!1 &1227116281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1227116282}
+  - component: {fileID: 1227116283}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1227116282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227116281}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1227116283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227116281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a9cf2c2da3148b9a3d223269a99825, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileSizeInput: 1
+  gridOffsetInput: {x: 0.5, y: 0.5, z: 0}
 --- !u!1 &1525208932
 GameObject:
   m_ObjectHideFlags: 0
@@ -1825,3 +1929,4 @@ SceneRoots:
   - {fileID: 1525208934}
   - {fileID: 929905353}
   - {fileID: 1162340882}
+  - {fileID: 1227116282}
