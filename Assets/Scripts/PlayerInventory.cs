@@ -41,7 +41,7 @@ public class PlayerInventory : MonoBehaviour
                 Collider2D[] colliders = Physics2D.OverlapBoxAll(mover.GetForwardPoint(), new Vector2(0.8f, 0.8f), 0f);
                 foreach (Collider2D collider in colliders)
                 {
-                    if (collider.gameObject.name == "Box")
+                    if (collider.gameObject.CompareTag("Box"))
                     {
                         heldObject = collider.gameObject;
                         collider.gameObject.SetActive(false);

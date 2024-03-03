@@ -39,7 +39,7 @@ public class LevelManager : MonoBehaviour
             {
                 return false;
             }
-            if (collider.gameObject.name == "Box")
+            if (collider.gameObject.CompareTag("Box"))
             {
                 return false;
             }

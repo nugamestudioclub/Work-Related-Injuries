@@ -16,9 +16,15 @@ public class PlayerMover : MonoBehaviour
     [Header("Player Properties")]
     [SerializeField] private float walkSpeed;
     [SerializeField] private float sprintSpeed;
+    // the percent of the way the player needs to be to the next tile before
+    // the mover will automatically move them toward the target tile rather
+    // than the tile they started on
+    [SerializeField] private float tileReturnPercent;
 
 
     // represents the world space position of the center of the tile this player occupies
+    // INVARIANT: targetTile is always a position which is at most a single adjacent
+    // tileSize away from the player's position
     private Vector3 targetTile;
 
     // represents the current move speed of the player
@@ -54,6 +60,17 @@ public class PlayerMover : MonoBehaviour
         float yInput = Input.GetAxis("Vertical");
 
         transform.position = Vector3.MoveTowards(transform.position, targetTile, moveSpeed * Time.deltaTime);
+
+        if (yInput != 0f || xInput != 0f)
+        {
+            if (Mathf.Abs(yInput) >= Mathf.Abs(xInput))
+            {
+                OrientPlayer(transform.position + Vector3.up * yInput);
+            } else
+            {
+                OrientPlayer(transform.position + Vector3.right * xInput);
+            }
+        }
 
         if (onTileCenter())
         {
@@ -91,13 +108,24 @@ public class PlayerMover : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                // if no inputs are detected, return to the origin tile if you are
+                // not close enough to the current target tile
+                if (Vector3.Distance(transform.position, targetTile) >= tileSize * (1f - tileReturnPercent))
+                {
+                    targetTile += -displacement.normalized * tileSize;
+                }
+            }
         }
 
     }
 
+    // assumes the targetTile will only ever be moved by a single adjacent
+    // tile of length tileSize
     private void attemptMoveTargetBy(Vector3 relativeMove)
     {
-        OrientPlayer(transform.position + relativeMove);
+        //OrientPlayer(transform.position + relativeMove);
         if (LevelManager.targetTileOpen(targetTile + relativeMove))
         {
             targetTile += relativeMove;
