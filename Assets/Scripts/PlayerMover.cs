@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMover : MonoBehaviour
+public class PlayerMover : MonoBehaviour, IRetreatable
 {
     // a Vector2 representing the amount of displacement from (0, 0) in world space to the center of the central tile's position in the level
     private Vector3 gridOffset;
@@ -194,5 +194,14 @@ public class PlayerMover : MonoBehaviour
     public bool ForwardTileOpen()
     {
         return LevelManager.targetTileOpen(GetForwardPoint());
+    }
+
+    public void Retreat()
+    {
+        if (!onTileCenter())
+        {
+            Vector3 bearing = (targetTile - transform.position).normalized;
+            targetTile += -bearing * tileSize;
+        }
     }
 }

@@ -33,6 +33,36 @@ public class LevelManager : MonoBehaviour
     public static bool targetTileOpen(Vector3 targetPos)
     {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(targetPos, new Vector2(0.8f * tileSize, 0.8f * tileSize), 0f);
+        return !LevelManager.containsSolidCollider(colliders);
+    }
+
+    public static bool containsSolidCollider(Collider2D[] colliders)
+    {
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
+            {
+                return true;
+            }
+            if (collider.gameObject.CompareTag("Box"))
+            {
+                return true;
+            }
+            if (collider.gameObject.CompareTag("Player"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static bool targetTileHasMovable(Vector3 targetPos)
+    {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(targetPos, new Vector2(0.8f * tileSize, 0.8f * tileSize), 0f);
+
+        bool boxFound = false;
+        bool playerFound = false;
+
         foreach (Collider2D collider in colliders)
         {
             if (collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
@@ -41,13 +71,18 @@ public class LevelManager : MonoBehaviour
             }
             if (collider.gameObject.CompareTag("Box"))
             {
-                return false;
+                boxFound = true;
             }
             if (collider.gameObject.CompareTag("Player"))
             {
-                return false;
+                playerFound = true;
             }
         }
-        return true;
+
+        if (boxFound || playerFound)
+        {
+            return true;
+        }
+        return false;
     }
 }

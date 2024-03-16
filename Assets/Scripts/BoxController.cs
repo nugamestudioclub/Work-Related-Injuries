@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoxController : MonoBehaviour
+public class BoxController : MonoBehaviour, IRetreatable
 {
     [SerializeField]
     private float throwSpeed;
@@ -36,7 +36,7 @@ public class BoxController : MonoBehaviour
                 if (nextTargetTile != targetPos)
                 {
                     Vector3 potentialNextTile = nextTargetTile + (targetPos - nextTargetTile).normalized * tileSize;
-                    if (LevelManager.targetTileOpen(potentialNextTile))
+                    if (LevelManager.targetTileHasMovable(potentialNextTile) || LevelManager.targetTileOpen(potentialNextTile))
                     {
                         nextTargetTile = potentialNextTile;
                     }
@@ -58,6 +58,16 @@ public class BoxController : MonoBehaviour
         {
             nextTargetTile = transform.position;
             targetPos = transform.position;
+        }
+    }
+
+    public void Retreat()
+    {
+        if (!(transform.position == nextTargetTile && transform.position == targetPos))
+        {
+            Vector3 bearing = (targetPos - transform.position).normalized;
+            nextTargetTile += -bearing * LevelManager.tileSize;
+            targetPos = nextTargetTile;
         }
     }
 }
