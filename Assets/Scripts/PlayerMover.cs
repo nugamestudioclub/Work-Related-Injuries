@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMover : MonoBehaviour, IRetreatable
+public class PlayerMover : MonoBehaviour, IRetreatable, IPlayerMover
 {
     // a Vector2 representing the amount of displacement from (0, 0) in world space to the center of the central tile's position in the level
     private Vector3 gridOffset;
@@ -176,6 +176,23 @@ public class PlayerMover : MonoBehaviour, IRetreatable
                 return Vector3.right * tileSize;
             case Orientation.West:
                 return Vector3.left * tileSize;
+            default:
+                return Vector3.zero;
+        }
+    }
+
+    public Vector3 GetForwardDirection()
+    {
+        switch (facing)
+        {
+            case Orientation.North:
+                return Vector3.up;
+            case Orientation.South:
+                return Vector3.down;
+            case Orientation.East:
+                return Vector3.right;
+            case Orientation.West:
+                return Vector3.left;
             default:
                 return Vector3.zero;
         }

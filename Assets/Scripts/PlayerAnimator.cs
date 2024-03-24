@@ -11,12 +11,12 @@ public class PlayerAnimator : MonoBehaviour
 
 
     private SpriteRenderer render;
-    private PlayerMover mover;
+    private IPlayerMover mover;
 
     // Start is called before the first frame update
     void Start()
     {
-        mover = gameObject.GetComponent<PlayerMover>();
+        mover = gameObject.GetComponent<IPlayerMover>();
         render = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 

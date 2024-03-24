@@ -85,4 +85,10 @@ public class LevelManager : MonoBehaviour
         }
         return false;
     }
+
+    public static bool TargetSpaceOpen(Vector2 position, Vector2 size)
+    {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(position, size, 0f);
+        return !LevelManager.containsSolidCollider(colliders);
+    }
 }
