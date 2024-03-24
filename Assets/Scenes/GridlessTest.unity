@@ -774,8 +774,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2aa2071f97b1400cbcbc33a24442873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 40
-  sprintSpeed: 60
+  walkSpeed: 70
+  sprintSpeed: 120
 --- !u!50 &707250130
 Rigidbody2D:
   serializedVersion: 4
@@ -789,7 +789,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1
+  m_LinearDrag: 20
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 7aad3bc075f0642089256bb332effad9, type: 2}
