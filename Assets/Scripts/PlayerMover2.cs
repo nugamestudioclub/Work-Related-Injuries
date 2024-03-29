@@ -9,19 +9,29 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
     // the speed the player runs in units per second
     public float sprintSpeed;
 
+    // the drag the player experiences while stunned
+    public float stunnedDrag;
+    // the amount of velocity change that stuns the player
+    public float stunBarrier;
+
+    private Rigidbody2D rb;
+    private float baseDrag;
+
     // the current move speed of the player in units per second
     private float moveSpeed;
 
     // represents the current facing direction of the player
     private Orientation facing;
 
-    private Rigidbody2D rb;
+    // whether the player is stunned right now or not
+    private bool stunned = false;
 
 
     void Start()
     {
         facing = Orientation.East;
         rb = GetComponent<Rigidbody2D>();
+        baseDrag = rb.drag;
     }
 
     void Update()
@@ -35,7 +45,10 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
             moveSpeed = walkSpeed;
         }
 
-        OrientPlayer();
+        if (!stunned)
+        {
+            OrientPlayer();
+        }
     }
 
     private void FixedUpdate()
@@ -63,7 +76,28 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
         // TODO: note that this line causes the player's velocity to be set to 0 each frame when no input
         //rb.velocity = movementInput;
 
-        rb.AddForce(movementInput);
+        if (!stunned)
+        {
+            rb.AddForce(movementInput);
+            if (rb.drag != baseDrag)
+            {
+                rb.drag = baseDrag;
+            }
+        }
+        else
+        {
+            if (rb.drag != stunnedDrag)
+            {
+                rb.drag = stunnedDrag;
+            }
+        }
+
+        if (rb.velocity.magnitude <= 0.1f)
+        {
+            stunned = false;
+        }
+
+        //Debug.Log(rb.velocity.magnitude + ", " + stunned);
     }
 
     private void OrientPlayer()
@@ -125,6 +159,25 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
                 return Vector3.left;
             default:
                 return Vector3.zero;
+        }
+    }
+
+    public void StunPlayer()
+    {
+        stunned = true;
+        rb.drag = stunnedDrag;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("collision detected");
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Box"))
+        {
+            if (collision.relativeVelocity.magnitude > stunBarrier)
+            {
+                StunPlayer();
+                collision.rigidbody.velocity = Vector2.zero;
+            }
         }
     }
 }
