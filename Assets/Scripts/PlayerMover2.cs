@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMover2 : MonoBehaviour, IPlayerMover
 {
@@ -16,6 +17,8 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
 
     private Rigidbody2D rb;
     private float baseDrag;
+
+    private Vector2 movementInput;
 
     // the current move speed of the player in units per second
     private float moveSpeed;
@@ -36,15 +39,6 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            moveSpeed = sprintSpeed;
-        }
-        else
-        {
-            moveSpeed = walkSpeed;
-        }
-
         if (!stunned)
         {
             OrientPlayer();
@@ -53,10 +47,10 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
 
     private void FixedUpdate()
     {
-        float xInput = Input.GetAxis("Horizontal");
-        float yInput = Input.GetAxis("Vertical");
+        //float xInput = Input.GetAxis("Horizontal");
+        //float yInput = Input.GetAxis("Vertical");
 
-        Vector2 movementInput;
+        //Vector2 movementInput;
 
 
         /* Test with controller to see whether full control or right angle control is better
@@ -68,8 +62,6 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
             movementInput = new Vector2(0f, yInput);
         }
         */
-
-        movementInput = new Vector2(xInput, yInput);
 
         movementInput = movementInput.normalized * moveSpeed;
 
@@ -102,8 +94,11 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
 
     private void OrientPlayer()
     {
-        float xInput = Input.GetAxis("Horizontal");
-        float yInput = Input.GetAxis("Vertical");
+        //float xInput = Input.GetAxis("Horizontal");
+        //float yInput = Input.GetAxis("Vertical");
+
+        float xInput = movementInput.x;
+        float yInput = movementInput.y;
 
         if (Mathf.Abs(xInput) > Mathf.Abs(yInput))
         {
@@ -178,6 +173,24 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
                 StunPlayer();
                 collision.rigidbody.velocity = Vector2.zero;
             }
+        }
+    }
+
+    public void OnMove(InputAction.CallbackContext ctx)
+    {
+        movementInput = ctx.ReadValue<Vector2>();
+    }
+
+    public void OnSprint(InputAction.CallbackContext ctx)
+    {
+        bool sprintPressed = ctx.ReadValueAsButton();
+        if (sprintPressed)
+        {
+            moveSpeed = sprintSpeed;
+        }
+        else
+        {
+            moveSpeed = walkSpeed;
         }
     }
 }

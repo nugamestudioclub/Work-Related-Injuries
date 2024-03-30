@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInventory2 : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class PlayerInventory2 : MonoBehaviour
 
     private GameObject heldObject = null;
     private IPlayerMover mover;
+
+    private bool pickupButtonDown = false;
+    private bool throwButtonDown = false;
 
     // Start is called before the first frame update
     void Start()
@@ -19,28 +23,7 @@ public class PlayerInventory2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (heldObject == null)
-            {
-                AttemptPickup();
-            }
-            else
-            {
-                AttemptPlace();
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (heldObject == null)
-            {
-                AttemptPickup();
-            }
-            else
-            {
-                AttemptThrow();
-            }
-        }
+        
     }
 
     void AttemptPickup()
@@ -93,6 +76,62 @@ public class PlayerInventory2 : MonoBehaviour
             heldObject.SetActive(true);
             heldObject.GetComponent<Rigidbody2D>().velocity = mover.GetForwardDirection() * throwVelocity;
             heldObject = null;
+        }
+    }
+
+    public void OnPickup(InputAction.CallbackContext ctx)
+    {
+        bool buttonState = ctx.ReadValueAsButton();
+
+        if (!pickupButtonDown)
+        {
+            if (buttonState)
+            {
+                if (heldObject == null)
+                {
+                    AttemptPickup();
+                }
+                else
+                {
+                    AttemptPlace();
+                }
+                pickupButtonDown = true;
+            }
+        }
+        else
+        {
+            if (!buttonState)
+            {
+                pickupButtonDown = false;
+            }
+        }
+    }
+
+    public void OnThrow(InputAction.CallbackContext ctx)
+    {
+        bool buttonState = ctx.ReadValueAsButton();
+
+        if (!throwButtonDown)
+        {
+            if (buttonState)
+            {
+                if (heldObject == null)
+                {
+                    AttemptPickup();
+                }
+                else
+                {
+                    AttemptThrow();
+                }
+                throwButtonDown = true;
+            }
+        }
+        else
+        {
+            if (!buttonState)
+            {
+                throwButtonDown = false;
+            }
         }
     }
 }
