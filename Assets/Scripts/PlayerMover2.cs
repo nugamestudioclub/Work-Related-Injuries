@@ -35,6 +35,7 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
         facing = Orientation.East;
         rb = GetComponent<Rigidbody2D>();
         baseDrag = rb.drag;
+        moveSpeed = walkSpeed;
     }
 
     void Update()
