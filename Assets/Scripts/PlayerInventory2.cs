@@ -134,4 +134,9 @@ public class PlayerInventory2 : MonoBehaviour
             }
         }
     }
+
+    public void DestroyHeldObject()
+    {
+        heldObject = null;
+    }
 }

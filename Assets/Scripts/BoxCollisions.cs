@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectCollisions : MonoBehaviour
+public class BoxCollisions : MonoBehaviour
 {
-    public Vector2 centerOffset = new Vector2(0f, -0.2f);
+    public Vector2 centerOffset;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
     // Update is called once per frame
     void Update()
@@ -15,9 +21,14 @@ public class ObjectCollisions : MonoBehaviour
         {
             if (collider.CompareTag("Saw"))
             {
-                Debug.Log("saw found this frame");
+                DestroyBox();
                 break;
             }
         }
+    }
+
+    public void DestroyBox()
+    {
+        Destroy(gameObject);
     }
 }
