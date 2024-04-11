@@ -205,3 +205,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centerOffset: {x: 0, y: 0}
   maxSinkSpeed: 1
+  beltForce: 4000

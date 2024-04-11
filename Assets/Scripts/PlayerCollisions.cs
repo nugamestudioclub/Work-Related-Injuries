@@ -11,6 +11,9 @@ public class PlayerCollisions : MonoBehaviour
     // the max speed the player can move and still fall into a hole in units per seconds
     public float maxSinkSpeed;
 
+    // the amount of force a conveyor belt applies to a box
+    public float beltForce;
+
     private PlayerMover2 mover;
     private PlayerInventory2 inventory;
     private PlayerAnimator animator;
@@ -59,6 +62,10 @@ public class PlayerCollisions : MonoBehaviour
                         break;
                     }
                 }
+            }
+            if (collider.CompareTag("RightBelt"))
+            {
+                rb.AddForce(new Vector2(beltForce * Time.deltaTime, 0));
             }
         }
     }

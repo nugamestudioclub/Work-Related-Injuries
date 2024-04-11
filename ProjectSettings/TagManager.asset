@@ -8,6 +8,7 @@ TagManager:
   - Saw
   - Player1Respawn
   - Hole
+  - RightBelt
   layers:
   - Default
   - TransparentFX

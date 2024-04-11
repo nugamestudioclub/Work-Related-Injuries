@@ -9,6 +9,9 @@ public class BoxCollisions : MonoBehaviour
     // the max speed the box can move and still fall into a hole in units per seconds
     public float maxSinkSpeed;
 
+    // the amount of force a conveyor belt applies to a box
+    public float beltForce;
+
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb;
 
@@ -42,6 +45,10 @@ public class BoxCollisions : MonoBehaviour
                         break;
                     }
                 }
+            }
+            if (collider.CompareTag("RightBelt"))
+            {
+                rb.AddForce(new Vector2(beltForce * Time.deltaTime, 0));
             }
         }
     }
