@@ -8,9 +8,15 @@ public class PlayerCollisions : MonoBehaviour
 
     public Transform respawner;
 
+    // the max speed the player can move and still fall into a hole in units per seconds
+    public float maxSinkSpeed;
+
     private PlayerMover2 mover;
     private PlayerInventory2 inventory;
     private PlayerAnimator animator;
+
+    private BoxCollider2D boxCollider;
+    private Rigidbody2D rb;
 
     private bool isDead = false;
 
@@ -19,6 +25,9 @@ public class PlayerCollisions : MonoBehaviour
         mover = GetComponent<PlayerMover2>();
         inventory = GetComponent<PlayerInventory2>();
         animator = GetComponent<PlayerAnimator>();
+
+        boxCollider = GetComponent<BoxCollider2D>();
+        rb = GetComponent<Rigidbody2D>();
 
         respawner = GameObject.FindGameObjectWithTag("Player1Respawn").transform;
     }
@@ -39,6 +48,17 @@ public class PlayerCollisions : MonoBehaviour
             {
                 KillPlayer();
                 break;
+            }
+            if (collider.CompareTag("Hole")) {
+                if (collider.OverlapPoint(boxCollider.bounds.min) && collider.OverlapPoint(boxCollider.bounds.max))
+                {
+                    mover.grounded = false;
+                    if (rb.velocity.magnitude <= maxSinkSpeed)
+                    {
+                        KillPlayer();
+                        break;
+                    }
+                }
             }
         }
     }
@@ -66,5 +86,11 @@ public class PlayerCollisions : MonoBehaviour
         inventory.enabled = true;
         animator.enabled = true;
         transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(boxCollider.bounds.min, boxCollider.bounds.max);
     }
 }

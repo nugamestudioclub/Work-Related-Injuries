@@ -29,6 +29,8 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
     // whether the player is stunned right now or not
     private bool stunned = false;
 
+    public bool grounded = true;
+
 
     void Start()
     {
@@ -40,7 +42,7 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
 
     void Update()
     {
-        if (!stunned)
+        if (!stunned && grounded)
         {
             OrientPlayer();
         }
@@ -69,7 +71,7 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
         // TODO: note that this line causes the player's velocity to be set to 0 each frame when no input
         //rb.velocity = movementInput;
 
-        if (!stunned)
+        if (!stunned && grounded)
         {
             rb.AddForce(movementInput);
             if (rb.drag != baseDrag)
@@ -91,6 +93,8 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
         }
 
         //Debug.Log(rb.velocity.magnitude + ", " + stunned);
+
+        grounded = true;
     }
 
     private void OrientPlayer()

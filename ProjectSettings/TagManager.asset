@@ -7,6 +7,7 @@ TagManager:
   - Box
   - Saw
   - Player1Respawn
+  - Hole
   layers:
   - Default
   - TransparentFX
