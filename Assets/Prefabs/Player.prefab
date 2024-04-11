@@ -350,4 +350,4 @@ MonoBehaviour:
   centerOffset: {x: 0, y: -0.2}
   respawner: {fileID: 0}
   maxSinkSpeed: 7
-  beltForce: 1500
+  beltForce: 2

@@ -65,7 +65,19 @@ public class PlayerCollisions : MonoBehaviour
             }
             if (collider.CompareTag("RightBelt"))
             {
-                rb.AddForce(new Vector2(beltForce * Time.deltaTime, 0));
+                rb.AddForce(new Vector2(beltForce, 0));
+            }
+            if (collider.CompareTag("LeftBelt"))
+            {
+                rb.AddForce(new Vector2(-beltForce, 0));
+            }
+            if (collider.CompareTag("UpBelt"))
+            {
+                rb.AddForce(new Vector2(0f, beltForce));
+            }
+            if (collider.CompareTag("DownBelt"))
+            {
+                rb.AddForce(new Vector2(0f, -beltForce));
             }
         }
     }

@@ -9,6 +9,9 @@ TagManager:
   - Player1Respawn
   - Hole
   - RightBelt
+  - LeftBelt
+  - UpBelt
+  - DownBelt
   layers:
   - Default
   - TransparentFX

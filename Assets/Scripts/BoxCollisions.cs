@@ -11,20 +11,32 @@ public class BoxCollisions : MonoBehaviour
 
     // the amount of force a conveyor belt applies to a box
     public float beltForce;
+    // the amount of drag a box should experience on a belt when too fast
+    public float beltDrag;
+    // the min speed a box will experience belt drag
+    public float maxBeltSpeed;
 
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb;
+
+    private float startDrag;
 
     // Start is called before the first frame update
     void Start()
     {
         boxCollider = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+        startDrag = rb.drag;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (rb.drag != startDrag)
+        {
+            rb.drag = startDrag;
+        }
+
         Collider2D[] colliders = Physics2D.OverlapPointAll((Vector2)transform.position + centerOffset);
 
         foreach (Collider2D collider in colliders)
@@ -48,7 +60,39 @@ public class BoxCollisions : MonoBehaviour
             }
             if (collider.CompareTag("RightBelt"))
             {
-                rb.AddForce(new Vector2(beltForce * Time.deltaTime, 0));
+                rb.AddForce(new Vector2(beltForce, 0));
+                if (rb.velocity.magnitude > maxBeltSpeed)
+                {
+                    rb.drag = beltDrag;
+                }
+                break;
+            }
+            if (collider.CompareTag("LeftBelt"))
+            {
+                rb.AddForce(new Vector2(-beltForce, 0));
+                if (rb.velocity.magnitude > maxBeltSpeed)
+                {
+                    rb.drag = beltDrag;
+                }
+                break;
+            }
+            if (collider.CompareTag("UpBelt"))
+            {
+                rb.AddForce(new Vector2(0f, beltForce));
+                if (rb.velocity.magnitude > maxBeltSpeed)
+                {
+                    rb.drag = beltDrag;
+                }
+                break;
+            }
+            if (collider.CompareTag("DownBelt"))
+            {
+                rb.AddForce(new Vector2(0f, -beltForce));
+                if (rb.velocity.magnitude > maxBeltSpeed)
+                {
+                    rb.drag = beltDrag;
+                }
+                break;
             }
         }
     }
