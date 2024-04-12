@@ -22,6 +22,7 @@ public class PlayerCollisions : MonoBehaviour
     private Rigidbody2D rb;
 
     private bool isDead = false;
+    private bool respawnReady = false;
 
     private void Start()
     {
@@ -41,6 +42,14 @@ public class PlayerCollisions : MonoBehaviour
         if (isDead)
         {
             return;
+        }
+
+        if (respawnReady)
+        {
+            if (LevelManager.BoundsOpen(boxCollider.bounds))
+            {
+                Respawn();
+            }
         }
 
         Collider2D[] colliders = Physics2D.OverlapPointAll((Vector2)transform.position + centerOffset);
@@ -92,19 +101,26 @@ public class PlayerCollisions : MonoBehaviour
             inventory.enabled = false;
             animator.enabled = false;
             transform.GetChild(0).gameObject.SetActive(false);
-            Invoke("Respawn", 2f);
+            boxCollider.enabled = false;
+            Invoke("ReadyRespawn", 2f);
         }
+    }
+
+    public void ReadyRespawn()
+    {
+        transform.position = respawner.position;
+        respawnReady = true;
+        isDead = false;
     }
 
     public void Respawn()
     {
-        transform.position = respawner.position;
-
-        isDead = false;
         mover.enabled = true;
         inventory.enabled = true;
         animator.enabled = true;
         transform.GetChild(0).gameObject.SetActive(true);
+        boxCollider.enabled = true;
+        respawnReady = false;
     }
 
     private void OnDrawGizmos()

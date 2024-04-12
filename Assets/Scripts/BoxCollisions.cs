@@ -15,6 +15,10 @@ public class BoxCollisions : MonoBehaviour
     public float beltDrag;
     // the min speed a box will experience belt drag
     public float maxBeltSpeed;
+    // the amount that a box is displaced on an ideal horizontal belt
+    public float horizontalBeltCenterOffset = -0.1f;
+    // the amount of force a belt can exert to center a box
+    public float beltCenterForce;
 
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb;
@@ -61,6 +65,19 @@ public class BoxCollisions : MonoBehaviour
             if (collider.CompareTag("RightBelt"))
             {
                 rb.AddForce(new Vector2(beltForce, 0));
+
+                float tilesUp = (transform.position.y - LevelManager.gridOffset.y + horizontalBeltCenterOffset) / LevelManager.tileSize;
+                int wholeTilesUp = (int)Mathf.Round(tilesUp);
+                if (tilesUp >= wholeTilesUp)
+                {
+                    rb.AddForce(new Vector2(0f, -beltCenterForce));
+                }
+                else if (tilesUp <= wholeTilesUp)
+                {
+                    rb.AddForce(new Vector2(0f, beltCenterForce));
+                }
+
+
                 if (rb.velocity.magnitude > maxBeltSpeed)
                 {
                     rb.drag = beltDrag;
@@ -70,6 +87,18 @@ public class BoxCollisions : MonoBehaviour
             if (collider.CompareTag("LeftBelt"))
             {
                 rb.AddForce(new Vector2(-beltForce, 0));
+
+                float tilesUp = (transform.position.y - LevelManager.gridOffset.y + horizontalBeltCenterOffset) / LevelManager.tileSize;
+                int wholeTilesUp = (int)Mathf.Round(tilesUp);
+                if (tilesUp >= wholeTilesUp)
+                {
+                    rb.AddForce(new Vector2(0f, -beltCenterForce));
+                }
+                else if (tilesUp <= wholeTilesUp)
+                {
+                    rb.AddForce(new Vector2(0f, beltCenterForce));
+                }
+
                 if (rb.velocity.magnitude > maxBeltSpeed)
                 {
                     rb.drag = beltDrag;
@@ -79,6 +108,18 @@ public class BoxCollisions : MonoBehaviour
             if (collider.CompareTag("UpBelt"))
             {
                 rb.AddForce(new Vector2(0f, beltForce));
+
+                float tilesRight = (transform.position.x - LevelManager.gridOffset.x) / LevelManager.tileSize;
+                int wholeTilesRight = (int)Mathf.Round(tilesRight);
+                if (tilesRight >= wholeTilesRight)
+                {
+                    rb.AddForce(new Vector2(-beltCenterForce, 0f));
+                }
+                else if (tilesRight <= wholeTilesRight)
+                {
+                    rb.AddForce(new Vector2(beltCenterForce, 0f));
+                }
+
                 if (rb.velocity.magnitude > maxBeltSpeed)
                 {
                     rb.drag = beltDrag;
@@ -88,6 +129,18 @@ public class BoxCollisions : MonoBehaviour
             if (collider.CompareTag("DownBelt"))
             {
                 rb.AddForce(new Vector2(0f, -beltForce));
+
+                float tilesRight = (transform.position.x - LevelManager.gridOffset.x) / LevelManager.tileSize;
+                int wholeTilesRight = (int)Mathf.Round(tilesRight);
+                if (tilesRight >= wholeTilesRight)
+                {
+                    rb.AddForce(new Vector2(-beltCenterForce, 0f));
+                }
+                else if (tilesRight <= wholeTilesRight)
+                {
+                    rb.AddForce(new Vector2(beltCenterForce, 0f));
+                }
+
                 if (rb.velocity.magnitude > maxBeltSpeed)
                 {
                     rb.drag = beltDrag;

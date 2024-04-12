@@ -36,6 +36,12 @@ public class LevelManager : MonoBehaviour
         return !LevelManager.containsSolidCollider(colliders);
     }
 
+    public static bool BoundsOpen(Bounds bounds)
+    {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(bounds.center, bounds.size, 0f);
+        return !LevelManager.containsSolidCollider(colliders);
+    }
+
     public static bool containsSolidCollider(Collider2D[] colliders)
     {
         foreach (Collider2D collider in colliders)
