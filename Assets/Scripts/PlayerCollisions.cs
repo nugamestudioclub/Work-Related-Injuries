@@ -33,7 +33,9 @@ public class PlayerCollisions : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
 
-        respawner = GameObject.FindGameObjectWithTag("Player1Respawn").transform;
+        respawner = GameObject.FindGameObjectWithTag("PlayerSpawnManager").GetComponent<PlayerSpawner>().GetSpawner(GetComponent<PlayerIdentifier>().playerNumber);
+
+        transform.position = respawner.position;
     }
 
     // Update is called once per frame

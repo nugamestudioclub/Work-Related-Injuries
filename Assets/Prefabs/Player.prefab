@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 5570835965264078238}
   - component: {fileID: 6432753460418506765}
   - component: {fileID: 8816701298012788271}
+  - component: {fileID: -4223057450563664787}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -351,3 +352,16 @@ MonoBehaviour:
   respawner: {fileID: 0}
   maxSinkSpeed: 7
   beltForce: 2
+--- !u!114 &-4223057450563664787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5876545522980698582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b6f4932a8154db3bae5e575356f3b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: -1

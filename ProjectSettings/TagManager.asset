@@ -12,6 +12,10 @@ TagManager:
   - LeftBelt
   - UpBelt
   - DownBelt
+  - Player2Respawn
+  - Player3Respawn
+  - Player4Respawn
+  - PlayerSpawnManager
   layers:
   - Default
   - TransparentFX
