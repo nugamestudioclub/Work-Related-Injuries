@@ -97,4 +97,6 @@ public class LevelManager : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapBoxAll(position, size, 0f);
         return !LevelManager.containsSolidCollider(colliders);
     }
+
+    public static void Destroy
 }

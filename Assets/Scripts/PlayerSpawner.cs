@@ -16,6 +16,7 @@ public class PlayerSpawner : MonoBehaviour
 
     private void Start()
     {
+        /*
         InputControlList<InputDevice> devices = InputUser.GetUnpairedInputDevices();
         Debug.Log("unparied devices = " + devices.Count);
         Debug.Log(gameObject.name);
@@ -23,6 +24,7 @@ public class PlayerSpawner : MonoBehaviour
         {
             GetComponent<PlayerInputManager>().JoinPlayer(-1, -1, null, devices[i]);
         }
+        */
     }
 
     public int RegisterPlayer()
