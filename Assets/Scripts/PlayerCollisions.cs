@@ -24,6 +24,8 @@ public class PlayerCollisions : MonoBehaviour
     private bool isDead = false;
     private bool respawnReady = false;
 
+    private Bounds spawnBounds;
+
     private void Start()
     {
         mover = GetComponent<PlayerMover2>();
@@ -33,9 +35,11 @@ public class PlayerCollisions : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
 
-        respawner = GameObject.FindGameObjectWithTag("PlayerSpawnManager").GetComponent<PlayerSpawner>().GetSpawner(GetComponent<PlayerIdentifier>().playerNumber);
+        respawner = GetComponent<PlayerIdentifier>().GetSpawner();
 
         transform.position = respawner.position;
+
+        spawnBounds = new Bounds(respawner.position, boxCollider.bounds.size);
     }
 
     // Update is called once per frame
@@ -48,10 +52,7 @@ public class PlayerCollisions : MonoBehaviour
 
         if (respawnReady)
         {
-            if (LevelManager.BoundsOpen(boxCollider.bounds))
-            {
-                Respawn();
-            }
+            Respawn();
         }
 
         Collider2D[] colliders = Physics2D.OverlapPointAll((Vector2)transform.position + centerOffset);
@@ -117,6 +118,8 @@ public class PlayerCollisions : MonoBehaviour
 
     public void Respawn()
     {
+        LevelManager.DestroyObjectsIn(spawnBounds);
+
         mover.enabled = true;
         inventory.enabled = true;
         animator.enabled = true;

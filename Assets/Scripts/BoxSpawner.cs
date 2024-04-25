@@ -12,10 +12,12 @@ public class BoxSpawner : MonoBehaviour
 
     private float timer = 0f;
 
+    private Bounds spawnBounds;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        spawnBounds = new Bounds(transform.position, boxPrefab.GetComponent<BoxCollider2D>().bounds.size);
     }
 
     // Update is called once per frame
@@ -26,6 +28,9 @@ public class BoxSpawner : MonoBehaviour
         if (timer >= spawnInterval)
         {
             timer = 0f;
+
+            LevelManager.DestroyObjectsIn(spawnBounds);
+
             Instantiate(boxPrefab, transform.position, Quaternion.identity);
         }
     }

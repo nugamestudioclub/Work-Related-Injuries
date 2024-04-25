@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerInventory2 : MonoBehaviour
 {
@@ -14,10 +15,17 @@ public class PlayerInventory2 : MonoBehaviour
     private bool pickupButtonDown = false;
     private bool throwButtonDown = false;
 
+    private Image inventoryImage;
+
     // Start is called before the first frame update
     void Start()
     {
         mover = GetComponent<IPlayerMover>();
+
+        GameObject inventoryPanel = GetComponent<PlayerIdentifier>().GetInventoryPanel();
+        inventoryPanel.SetActive(true);
+        inventoryImage = inventoryPanel.transform.GetChild(0).GetComponent<Image>();
+        UpdateInventoryDisplay();
     }
 
     // Update is called once per frame
@@ -53,6 +61,7 @@ public class PlayerInventory2 : MonoBehaviour
         {
             heldObject = closeCollider.gameObject;
             closeCollider.gameObject.SetActive(false);
+            UpdateInventoryDisplay();
         }
     }
 
@@ -64,6 +73,7 @@ public class PlayerInventory2 : MonoBehaviour
             heldObject.transform.position = mover.GetForwardPoint();
             heldObject.SetActive(true);
             heldObject = null;
+            UpdateInventoryDisplay();
         }
     }
 
@@ -76,6 +86,7 @@ public class PlayerInventory2 : MonoBehaviour
             heldObject.SetActive(true);
             heldObject.GetComponent<Rigidbody2D>().velocity = mover.GetForwardDirection() * throwVelocity;
             heldObject = null;
+            UpdateInventoryDisplay();
         }
     }
 
@@ -138,5 +149,19 @@ public class PlayerInventory2 : MonoBehaviour
     public void DestroyHeldObject()
     {
         heldObject = null;
+    }
+
+    private void UpdateInventoryDisplay()
+    {
+        if (heldObject == null)
+        {
+            inventoryImage.sprite = null;
+            inventoryImage.color = new Color(1f, 1f, 1f, 0f);
+        }
+        else
+        {
+            inventoryImage.sprite = heldObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
+            inventoryImage.color = new Color(1f, 1f, 1f, 1f);
+        }
     }
 }

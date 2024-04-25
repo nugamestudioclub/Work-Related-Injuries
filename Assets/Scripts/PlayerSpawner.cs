@@ -10,6 +10,8 @@ public class PlayerSpawner : MonoBehaviour
 
     public GameObject[] spawners;
 
+    public GameObject[] inventoryPanels;
+
     public int expectedPlayers;
 
     private int currentPlayers = 0;
@@ -25,6 +27,11 @@ public class PlayerSpawner : MonoBehaviour
             GetComponent<PlayerInputManager>().JoinPlayer(-1, -1, null, devices[i]);
         }
         */
+
+        foreach (GameObject panel in inventoryPanels)
+        {
+            panel.SetActive(false);
+        }
     }
 
     public int RegisterPlayer()
@@ -36,5 +43,10 @@ public class PlayerSpawner : MonoBehaviour
     public Transform GetSpawner(int playerNumber)
     {
         return spawners[playerNumber].transform;
+    }
+
+    public GameObject GetInventoryPanel(int playerNumber)
+    {
+        return inventoryPanels[playerNumber];
     }
 }

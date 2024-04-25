@@ -99,4 +99,22 @@ public class LevelManager : MonoBehaviour
     }
 
     // method which destroys any objects caught in an area
+
+    public static void DestroyObjectsIn(Bounds bounds)
+    {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(bounds.center, bounds.size, 0f);
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.gameObject.CompareTag("Player"))
+            {
+                collider.gameObject.GetComponent<PlayerCollisions>().KillPlayer();
+                break;
+            }
+            if (collider.gameObject.CompareTag("Box"))
+            {
+                collider.gameObject.GetComponent<BoxCollisions>().DestroyBox();
+            }
+        }
+    }
 }
