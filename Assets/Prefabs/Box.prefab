@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 874737588204362866}
   - component: {fileID: 2755762605585277714}
   - component: {fileID: 1138966348993283166}
+  - component: {fileID: 3496415248522348791}
   m_Layer: 0
   m_Name: Box
   m_TagString: Box
@@ -189,3 +190,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d6b197839cb4644974a4c2df75501c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerOffset: {x: 0, y: -0.2}
+--- !u!114 &3496415248522348791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5482474049861617964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 345c63e47ba2d21469f3f8cfe4fbc87d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxSprites:
+  - Item1: 0
+    Item2: {fileID: 696286545, guid: 033035c70127b814287db8e1b8071e40, type: 3}
+  - Item1: 2
+    Item2: {fileID: -1278580448, guid: 033035c70127b814287db8e1b8071e40, type: 3}
+  - Item1: 1
+    Item2: {fileID: 312523090, guid: 033035c70127b814287db8e1b8071e40, type: 3}
+  - Item1: 3
+    Item2: {fileID: -345864225, guid: 033035c70127b814287db8e1b8071e40, type: 3}

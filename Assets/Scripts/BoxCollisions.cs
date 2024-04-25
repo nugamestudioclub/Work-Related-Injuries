@@ -51,6 +51,17 @@ public class BoxCollisions : MonoBehaviour
                 break;
             }
 
+            if (collider.CompareTag("Receptacle") && collider.TryGetComponent<ReceptacleController>(out var controller))
+            {
+                if (controller.ProcessBox(gameObject)) 
+                {
+                    // TODO increment score here or in ReceptacleController
+                    DestroyBox();
+                }
+
+                break;
+            }
+
             if (collider.CompareTag("Hole"))
             {
                 if (collider.OverlapPoint(boxCollider.bounds.min) && collider.OverlapPoint(boxCollider.bounds.max))

@@ -98,5 +98,4 @@ public class LevelManager : MonoBehaviour
         return !LevelManager.containsSolidCollider(colliders);
     }
 
-    public static void Destroy
 }

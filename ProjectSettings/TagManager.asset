@@ -16,6 +16,7 @@ TagManager:
   - Player3Respawn
   - Player4Respawn
   - PlayerSpawnManager
+  - Receptacle
   layers:
   - Default
   - TransparentFX
