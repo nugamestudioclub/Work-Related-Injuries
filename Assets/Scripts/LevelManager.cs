@@ -98,5 +98,5 @@ public class LevelManager : MonoBehaviour
         return !LevelManager.containsSolidCollider(colliders);
     }
 
-    public static void Destroy
+    // method which destroys any objects caught in an area
 }
