@@ -46,18 +46,34 @@ public class LevelManager : MonoBehaviour
                 }
             }
 
-            timeScoreHUD.UpdateScore(0);
-            timeScoreHUD.UpdateTime(levelDuration);
+            if (timeScoreHUD != null)
+            {
+                timeScoreHUD.UpdateScore(0);
+                timeScoreHUD.UpdateTime(levelDuration);
+            }
         }
     }
 
     private void Update()
     {
+        if (timeScoreHUD == null) return;
+
         // regenerating textmeshpro every frame is bleh but whatever
         // i want millisecond time display :blush:
 
         levelDuration -= Time.deltaTime;
         timeScoreHUD.UpdateTime(levelDuration);
+
+        if (levelDuration < 0f)
+        {
+            GameEnd();
+        }
+    }
+    
+    private void GameEnd()
+    {
+        Time.timeScale = 0f;
+        timeScoreHUD.ShowGameEnd(score);
     }
 
     public void ModifyScore(int amnt)
