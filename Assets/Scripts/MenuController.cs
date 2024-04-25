@@ -5,8 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    public void LoadLevel1()
+    [SerializeField]
+    private string levelLoad = "Level01";
+
+    public void LoadLevel()
     {
-        SceneManager.LoadScene("Level01");
+        SceneManager.LoadScene(levelLoad);
+
+        if (Time.timeScale != 1f) Time.timeScale = 1f;
     }
 }

@@ -851,11 +851,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c03bf7a5868460e95b61f2d3ca98bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 0}
   spawners:
   - {fileID: 1397538346}
   - {fileID: 1397538346}
   - {fileID: 1397538346}
   - {fileID: 1397538346}
+  expectedPlayers: 0
 --- !u!4 &447538186
 Transform:
   m_ObjectHideFlags: 0
@@ -1257,7 +1259,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1025407198}
         m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: LoadLevel1
+        m_MethodName: LoadLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1667,6 +1669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54642838291f4011ba94cc5666cf976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelLoad: Level01
 --- !u!1 &1031680660
 GameObject:
   m_ObjectHideFlags: 0
@@ -2487,6 +2490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a9cf2c2da3148b9a3d223269a99825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelDuration: 0
   tileSizeInput: 1
   gridOffsetInput: {x: 0.5, y: 0.5, z: 0}
 --- !u!1001 &1381604250
@@ -3420,6 +3424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac1295f480774c99b0ec3734ab5d3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  orientationWeights: []
   spawnInterval: 3
   boxPrefab: {fileID: 5482474049861617964, guid: 4cbd71e71fe6d4933b90cc604154685d, type: 3}
 --- !u!1 &1883447647

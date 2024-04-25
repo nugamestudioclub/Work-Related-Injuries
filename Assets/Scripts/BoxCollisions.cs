@@ -51,6 +51,17 @@ public class BoxCollisions : MonoBehaviour
                 break;
             }
 
+            if (collider.CompareTag("Receptacle") && collider.TryGetComponent<ReceptacleController>(out var controller))
+            {
+                if (controller.ProcessBox(gameObject)) 
+                {
+                    LevelManager.Instance.ModifyScore(1);
+                    DestroyBox(true);
+                }
+
+                break;
+            }
+
             if (collider.CompareTag("Hole"))
             {
                 if (collider.OverlapPoint(boxCollider.bounds.min) && collider.OverlapPoint(boxCollider.bounds.max))
@@ -150,8 +161,13 @@ public class BoxCollisions : MonoBehaviour
         }
     }
 
-    public void DestroyBox()
+    public void DestroyBox(bool properly_destroyed = false)
     {
+        if (!properly_destroyed)
+        {
+            LevelManager.Instance.ModifyScore(-1);
+        }
+
         Destroy(gameObject);
     }
 }
