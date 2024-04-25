@@ -34,7 +34,7 @@ public class BoxCollisions : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (rb.drag != startDrag)
         {

@@ -6,6 +6,8 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
 
+    public bool timedLevel = true;
+
     [SerializeField]
     private float levelDuration;
 
@@ -36,20 +38,23 @@ public class LevelManager : MonoBehaviour
             tileSize = tileSizeInput;
             gridOffset = gridOffsetInput;
 
-            var uigos = GameObject.FindGameObjectsWithTag("UIObject");
-            foreach (var ui in uigos)
+            if (timedLevel)
             {
-                if (ui.TryGetComponent<UserInterfaceManager>(out var component))
+                var uigos = GameObject.FindGameObjectsWithTag("UIObject");
+                foreach (var ui in uigos)
                 {
-                    timeScoreHUD = component;
-                    break;
+                    if (ui.TryGetComponent<UserInterfaceManager>(out var component))
+                    {
+                        timeScoreHUD = component;
+                        break;
+                    }
                 }
-            }
 
-            if (timeScoreHUD != null)
-            {
-                timeScoreHUD.UpdateScore(0);
-                timeScoreHUD.UpdateTime(levelDuration);
+                if (timeScoreHUD != null)
+                {
+                    timeScoreHUD.UpdateScore(0);
+                    timeScoreHUD.UpdateTime(levelDuration);
+                }
             }
         }
     }
@@ -64,7 +69,7 @@ public class LevelManager : MonoBehaviour
         levelDuration -= Time.deltaTime;
         timeScoreHUD.UpdateTime(levelDuration);
 
-        if (levelDuration < 0f)
+        if (levelDuration < 0f && timedLevel)
         {
             GameEnd();
         }

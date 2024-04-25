@@ -17,12 +17,19 @@ public class PlayerInventory2 : MonoBehaviour
 
     private Image inventoryImage;
 
+    private bool inventoryDisplay = true;
+
     // Start is called before the first frame update
     void Start()
     {
         mover = GetComponent<IPlayerMover>();
 
+        Debug.Log(mover);
+
         GameObject inventoryPanel = GetComponent<PlayerIdentifier>().GetInventoryPanel();
+
+
+
         inventoryPanel.SetActive(true);
         inventoryImage = inventoryPanel.transform.GetChild(0).GetComponent<Image>();
         UpdateInventoryDisplay();
@@ -149,6 +156,7 @@ public class PlayerInventory2 : MonoBehaviour
     public void DestroyHeldObject()
     {
         heldObject = null;
+        UpdateInventoryDisplay();
     }
 
     private void UpdateInventoryDisplay()

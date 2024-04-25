@@ -21,9 +21,11 @@ public class BoxSpawner : MonoBehaviour
 
     private void Awake()
     {
+        weightMax = 0;
+
         foreach (var item in orientationWeights)
         {
-            weightMax = Mathf.Max(weightMax, item.Item1);
+            weightMax += item.Item1;
         }
     }
 
@@ -50,9 +52,12 @@ public class BoxSpawner : MonoBehaviour
             {
                 int value = Random.Range(0, weightMax);
 
+                int weightCount = 0;
+
                 foreach (var item in orientationWeights)
                 {
-                    if (value < item.Item1)
+                    weightCount += item.Item1;
+                    if (value < weightCount)
                     {
                         component.SetOrientation(item.Item2);
                         break;

@@ -10,8 +10,18 @@ public class MenuController : MonoBehaviour
 
     public void LoadLevel()
     {
-        SceneManager.LoadScene(levelLoad);
+        Time.timeScale = 1f;
 
-        if (Time.timeScale != 1f) Time.timeScale = 1f;
+        SceneManager.LoadScene(levelLoad);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Time.timeScale != 1f) Time.timeScale = 1f;
+
+            SceneManager.LoadScene(0);
+        }
     }
 }
