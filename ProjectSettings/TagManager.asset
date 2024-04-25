@@ -17,6 +17,7 @@ TagManager:
   - Player4Respawn
   - PlayerSpawnManager
   - Receptacle
+  - UIObject
   layers:
   - Default
   - TransparentFX

@@ -55,8 +55,8 @@ public class BoxCollisions : MonoBehaviour
             {
                 if (controller.ProcessBox(gameObject)) 
                 {
-                    // TODO increment score here or in ReceptacleController
-                    DestroyBox();
+                    LevelManager.Instance.ModifyScore(1);
+                    DestroyBox(true);
                 }
 
                 break;
@@ -161,8 +161,13 @@ public class BoxCollisions : MonoBehaviour
         }
     }
 
-    public void DestroyBox()
+    public void DestroyBox(bool properly_destroyed = false)
     {
+        if (!properly_destroyed)
+        {
+            LevelManager.Instance.ModifyScore(-1);
+        }
+
         Destroy(gameObject);
     }
 }

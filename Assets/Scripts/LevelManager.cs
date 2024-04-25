@@ -7,6 +7,14 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get; private set; }
 
     [SerializeField]
+    private float levelDuration;
+
+    private int score;
+
+    private UserInterfaceManager timeScoreHUD;
+
+
+    [SerializeField]
     private float tileSizeInput;
     [SerializeField]
     private Vector3 gridOffsetInput;
@@ -27,7 +35,35 @@ public class LevelManager : MonoBehaviour
             Instance = this;
             tileSize = tileSizeInput;
             gridOffset = gridOffsetInput;
+
+            var uigos = GameObject.FindGameObjectsWithTag("UIObject");
+            foreach (var ui in uigos)
+            {
+                if (ui.TryGetComponent<UserInterfaceManager>(out var component))
+                {
+                    timeScoreHUD = component;
+                    break;
+                }
+            }
+
+            timeScoreHUD.UpdateScore(0);
+            timeScoreHUD.UpdateTime(levelDuration);
         }
+    }
+
+    private void Update()
+    {
+        // regenerating textmeshpro every frame is bleh but whatever
+        // i want millisecond time display :blush:
+
+        levelDuration -= Time.deltaTime;
+        timeScoreHUD.UpdateTime(levelDuration);
+    }
+
+    public void ModifyScore(int amnt)
+    {
+        score += amnt;
+        timeScoreHUD.UpdateScore(score);
     }
 
     public static bool targetTileOpen(Vector3 targetPos)
