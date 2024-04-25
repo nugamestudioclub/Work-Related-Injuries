@@ -332,10 +332,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d030a6f4d3f174e448e0235ce20dece4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  facingUp: {fileID: -1375177409, guid: a94a555df1cff4cc1b091c9d28870e6e, type: 3}
-  facingDown: {fileID: -1074817598, guid: a94a555df1cff4cc1b091c9d28870e6e, type: 3}
-  facingLeft: {fileID: 2010736788, guid: a94a555df1cff4cc1b091c9d28870e6e, type: 3}
-  facingRight: {fileID: -624687756, guid: a94a555df1cff4cc1b091c9d28870e6e, type: 3}
+  redPlayer:
+  - {fileID: -1821460037, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
+  - {fileID: -1606225026, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
+  - {fileID: 895280937, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
+  - {fileID: -2107695800, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
+  bluePlayer:
+  - {fileID: -848326347, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
+  - {fileID: -1373995368, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
+  - {fileID: 1290881138, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
+  - {fileID: 1791111493, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
+  greenPlayer:
+  - {fileID: -1559059683, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
+  - {fileID: -598374795, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
+  - {fileID: -2144010352, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
+  - {fileID: 158748508, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
+  yellowPlayer:
+  - {fileID: -1220647716, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
+  - {fileID: -1954600180, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
+  - {fileID: -494789449, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
+  - {fileID: -615105607, guid: b24ec8fd2a1924c3d8c42b14b4325801, type: 3}
 --- !u!114 &8816701298012788271
 MonoBehaviour:
   m_ObjectHideFlags: 0

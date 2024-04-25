@@ -130,7 +130,7 @@ public class PlayerCollisions : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(boxCollider.bounds.min, boxCollider.bounds.max);
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawLine(boxCollider.bounds.min, boxCollider.bounds.max);
     }
 }

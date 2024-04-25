@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    public Sprite facingUp;
-    public Sprite facingDown;
-    public Sprite facingLeft;
-    public Sprite facingRight;
+    public Sprite[] redPlayer;
+    public Sprite[] bluePlayer;
+    public Sprite[] greenPlayer;
+    public Sprite[] yellowPlayer;
+
+    private Sprite facingUp;
+    private Sprite facingDown;
+    private Sprite facingLeft;
+    private Sprite facingRight;
 
 
     private SpriteRenderer render;
@@ -18,6 +23,15 @@ public class PlayerAnimator : MonoBehaviour
     {
         mover = gameObject.GetComponent<IPlayerMover>();
         render = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+
+        int playerNumber = GetComponent<PlayerIdentifier>().playerNumber;
+
+        Sprite[][] allSprites = { redPlayer, bluePlayer, greenPlayer, yellowPlayer };
+
+        facingUp = allSprites[playerNumber][0];
+        facingDown = allSprites[playerNumber][1];
+        facingLeft = allSprites[playerNumber][2];
+        facingRight = allSprites[playerNumber][3];
     }
 
     // Update is called once per frame
