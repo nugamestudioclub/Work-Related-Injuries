@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 1021210320, guid: a94a555df1cff4cc1b091c9d28870e6e, type: 3}
+  m_Sprite: {fileID: 918687984, guid: 976bb518709054323be0849794ea6475, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -225,10 +225,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxSprites:
   - Item1: 0
-    Item2: {fileID: 696286545, guid: 033035c70127b814287db8e1b8071e40, type: 3}
-  - Item1: 2
-    Item2: {fileID: -1278580448, guid: 033035c70127b814287db8e1b8071e40, type: 3}
+    Item2: {fileID: 918687984, guid: 976bb518709054323be0849794ea6475, type: 3}
   - Item1: 1
-    Item2: {fileID: 312523090, guid: 033035c70127b814287db8e1b8071e40, type: 3}
+    Item2: {fileID: 2028821178, guid: 976bb518709054323be0849794ea6475, type: 3}
+  - Item1: 2
+    Item2: {fileID: -556415927, guid: 976bb518709054323be0849794ea6475, type: 3}
   - Item1: 3
-    Item2: {fileID: -345864225, guid: 033035c70127b814287db8e1b8071e40, type: 3}
+    Item2: {fileID: 1961817988, guid: 976bb518709054323be0849794ea6475, type: 3}
