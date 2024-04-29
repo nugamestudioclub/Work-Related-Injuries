@@ -165,7 +165,7 @@ public class BoxCollisions : MonoBehaviour
     {
         if (!properly_destroyed)
         {
-            LevelManager.Instance.ModifyScore(-1);
+            //LevelManager.Instance.ModifyScore(-1);
         }
 
         Destroy(gameObject);
