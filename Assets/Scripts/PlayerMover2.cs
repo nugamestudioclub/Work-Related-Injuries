@@ -20,6 +20,9 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
 
     private Vector2 movementInput;
 
+    public float moveDelay = 0.05f;
+    private float moveDelayTimer = 0f;
+
     // the current move speed of the player in units per second
     private float moveSpeed;
 
@@ -105,27 +108,49 @@ public class PlayerMover2 : MonoBehaviour, IPlayerMover
         float xInput = movementInput.x;
         float yInput = movementInput.y;
 
+        //Debug.Log("X Input: " + xInput + " and Y Input: " + yInput);
+
         if (Mathf.Abs(xInput) > Mathf.Abs(yInput))
         {
             if (xInput > 0f)
             {
-                facing = Orientation.East;
+                ChangeOrientation(Orientation.East);
             }
             if (xInput < 0f)
             {
-                facing = Orientation.West;
+                ChangeOrientation(Orientation.West);
             }
         }
         if (Mathf.Abs(yInput) > Mathf.Abs(xInput))
         {
             if (yInput > 0f)
             {
-                facing = Orientation.North;
+                ChangeOrientation(Orientation.North);
             }
             if (yInput < 0f)
             {
-                facing = Orientation.South;
+                ChangeOrientation(Orientation.South);
             }
+        }
+    }
+
+    private void ChangeOrientation(Orientation nextOrientation)
+    {
+        if (facing != nextOrientation)
+        {
+            if (moveDelayTimer >= moveDelay)
+            {
+                facing = nextOrientation;
+                moveDelayTimer = 0f;
+            }
+            else
+            {
+                moveDelayTimer += Time.deltaTime;
+            }
+        }
+        else
+        {
+            moveDelayTimer = 0f;
         }
     }
 
