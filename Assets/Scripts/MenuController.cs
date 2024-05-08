@@ -10,7 +10,9 @@ public class MenuController : MonoBehaviour
 
     public void LoadLevel()
     {
-        Time.timeScale = 1f;
+        if (Time.timeScale != 1f) Time.timeScale = 1f;
+
+        //Time.timeScale = 1f;
 
         SceneManager.LoadScene(levelLoad);
     }
@@ -19,9 +21,16 @@ public class MenuController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Time.timeScale != 1f) Time.timeScale = 1f;
+            Time.timeScale = 1f;
 
             SceneManager.LoadScene(0);
         }
+    }
+
+    public void LoadStartScreen()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(0);
     }
 }

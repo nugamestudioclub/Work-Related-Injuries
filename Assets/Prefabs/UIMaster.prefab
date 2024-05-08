@@ -686,7 +686,7 @@ GameObject:
   - component: {fileID: 3699576935780762050}
   - component: {fileID: 2101869123997824867}
   m_Layer: 5
-  m_Name: Mainmemem
+  m_Name: Main Menu Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -796,7 +796,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2911951288898771498}
         m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: LoadLevel
+        m_MethodName: LoadStartScreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -970,7 +970,7 @@ GameObject:
   - component: {fileID: 8543257249063419430}
   - component: {fileID: 4971396843335101339}
   m_Layer: 5
-  m_Name: YOu dah weener
+  m_Name: Win Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

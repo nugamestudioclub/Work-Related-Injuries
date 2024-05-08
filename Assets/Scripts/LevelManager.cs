@@ -32,7 +32,8 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log("Duplicate LevelManager found in scene.");
             Destroy(this);
-        } else
+        }
+        else
         {
             Instance = this;
             tileSize = tileSizeInput;
@@ -59,12 +60,17 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (!timedLevel)
+        {
+            Time.timeScale = 1f;
+        }
+    }
+
     private void Update()
     {
         if (timeScoreHUD == null) return;
-
-        // regenerating textmeshpro every frame is bleh but whatever
-        // i want millisecond time display :blush:
 
         levelDuration -= Time.deltaTime;
         timeScoreHUD.UpdateTime(levelDuration);
