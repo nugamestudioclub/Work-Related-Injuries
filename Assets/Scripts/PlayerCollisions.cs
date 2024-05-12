@@ -61,6 +61,7 @@ public class PlayerCollisions : MonoBehaviour
         {
             if (collider.CompareTag("Saw"))
             {
+                SFXManager.instance.Saw();
                 KillPlayer();
                 break;
             }
@@ -70,6 +71,7 @@ public class PlayerCollisions : MonoBehaviour
                     mover.grounded = false;
                     if (rb.velocity.magnitude <= maxSinkSpeed)
                     {
+                        SFXManager.instance.Fall();
                         KillPlayer();
                         break;
                     }
@@ -105,6 +107,8 @@ public class PlayerCollisions : MonoBehaviour
             animator.enabled = false;
             transform.GetChild(0).gameObject.SetActive(false);
             boxCollider.enabled = false;
+
+            SFXManager.instance.PlayerRespawn();
             Invoke("ReadyRespawn", 2f);
         }
     }

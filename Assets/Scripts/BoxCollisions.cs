@@ -47,6 +47,7 @@ public class BoxCollisions : MonoBehaviour
         {
             if (collider.CompareTag("Saw"))
             {
+                SFXManager.instance.Saw();
                 DestroyBox();
                 break;
             }
@@ -56,6 +57,7 @@ public class BoxCollisions : MonoBehaviour
                 if (controller.ProcessBox(gameObject)) 
                 {
                     LevelManager.Instance.ModifyScore(1);
+                    SFXManager.instance.BoxDeposit();
                     DestroyBox(true);
                 }
 
@@ -68,6 +70,7 @@ public class BoxCollisions : MonoBehaviour
                 {
                     if (rb.velocity.magnitude <= maxSinkSpeed)
                     {
+                        SFXManager.instance.Fall();
                         DestroyBox();
                         break;
                     }

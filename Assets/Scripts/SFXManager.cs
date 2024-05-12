@@ -4,15 +4,43 @@ using UnityEngine;
 
 public class SFXManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static SFXManager instance;
+
+    public AudioClip saw;
+    public AudioClip fall;
+    public AudioClip playerRespawn;
+    public AudioClip boxDeposit;
+
+    private void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Saw()
     {
-        
+        PlaySound(saw, 0.1f);
+    }
+
+    public void Fall()
+    {
+        PlaySound(fall, 0.3f);
+    }
+
+    public void PlayerRespawn()
+    {
+        PlaySound(playerRespawn, 0.3f);
+    }
+
+    public void BoxDeposit()
+    {
+        PlaySound(boxDeposit, 0.6f);
+    }
+
+    private void PlaySound(AudioClip clip, float volume)
+    {
+        AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position, volume);
     }
 }
