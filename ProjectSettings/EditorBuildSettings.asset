@@ -18,12 +18,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Level01WithUI.unity
     guid: 72a749d651fa74c42ab05073d914ceb3
   - enabled: 1
-    path: Assets/Scenes/Level02.unity
+    path: Assets/Scenes/Levels/Level01Twister.unity
     guid: 2848c47fff9504af68c6026ee2613b57
   - enabled: 1
-    path: Assets/Scenes/Level03.unity
+    path: Assets/Scenes/Levels/Level02Collider.unity
+    guid: 66a40527301e446e1a0ee8603c93cb22
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level03GoBetween.unity
     guid: 0b041f8258809495a9aeed91a6194196
   - enabled: 1
-    path: Assets/Scenes/Level04.unity
-    guid: 66a40527301e446e1a0ee8603c93cb22
+    path: Assets/Scenes/Levels/Level04Roundabout.unity
+    guid: e0b90673c5a24466d9374b4f70fd859f
   m_configObjects: {}
