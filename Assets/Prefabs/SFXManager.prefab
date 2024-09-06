@@ -48,3 +48,6 @@ MonoBehaviour:
   fall: {fileID: 8300000, guid: e451d17b02a6749b080df46e8e856e57, type: 3}
   playerRespawn: {fileID: 8300000, guid: f7579758ee51d48acb57e9d5982d6e9e, type: 3}
   boxDeposit: {fileID: 8300000, guid: e1ec027410fa24cf5a82358b2d19561e, type: 3}
+  playerPickup: {fileID: 8300000, guid: ab65dc8e7fc124903a38c60c242f397e, type: 3}
+  playerPlace: {fileID: 8300000, guid: 3f247f2a2460842ad9098d3b7814567d, type: 3}
+  playerThrow: {fileID: 8300000, guid: 3f247f2a2460842ad9098d3b7814567d, type: 3}

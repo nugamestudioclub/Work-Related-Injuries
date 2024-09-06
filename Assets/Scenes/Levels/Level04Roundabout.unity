@@ -133,7 +133,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 535500543644463696, guid: fae220477b70f4e499b83edd03351a87, type: 3}
       propertyPath: spawnInterval
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 535500543644463696, guid: fae220477b70f4e499b83edd03351a87, type: 3}
       propertyPath: orientationWeights.Array.size
@@ -3514,7 +3514,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 535500543644463696, guid: fae220477b70f4e499b83edd03351a87, type: 3}
       propertyPath: spawnInterval
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 535500543644463696, guid: fae220477b70f4e499b83edd03351a87, type: 3}
       propertyPath: orientationWeights.Array.size
@@ -5171,7 +5171,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 535500543644463696, guid: fae220477b70f4e499b83edd03351a87, type: 3}
       propertyPath: spawnInterval
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 535500543644463696, guid: fae220477b70f4e499b83edd03351a87, type: 3}
       propertyPath: orientationWeights.Array.size
@@ -5806,7 +5806,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 535500543644463696, guid: fae220477b70f4e499b83edd03351a87, type: 3}
       propertyPath: spawnInterval
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 535500543644463696, guid: fae220477b70f4e499b83edd03351a87, type: 3}
       propertyPath: orientationWeights.Array.size

@@ -10,6 +10,9 @@ public class SFXManager : MonoBehaviour
     public AudioClip fall;
     public AudioClip playerRespawn;
     public AudioClip boxDeposit;
+    public AudioClip playerPickup;
+    public AudioClip playerPlace;
+    public AudioClip playerThrow;
 
     private void Awake()
     {
@@ -37,6 +40,21 @@ public class SFXManager : MonoBehaviour
     public void BoxDeposit()
     {
         PlaySound(boxDeposit, 0.6f);
+    }
+
+    public void PlayerPickup()
+    {
+        PlaySound(playerPickup, 0.3f);
+    }
+
+    public void PlayerPlace()
+    {
+        PlaySound(playerPlace, 0.3f);
+    }
+
+    public void PlayerThrow()
+    {
+        PlaySound(playerThrow, 1f);
     }
 
     private void PlaySound(AudioClip clip, float volume)

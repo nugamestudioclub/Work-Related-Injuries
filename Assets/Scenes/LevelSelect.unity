@@ -639,6 +639,7 @@ MonoBehaviour:
   - Level01Twister
   - Level02Collider
   - Level03GoBetween
+  - Level04Roundabout
 --- !u!1 &666248327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1506,7 +1507,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

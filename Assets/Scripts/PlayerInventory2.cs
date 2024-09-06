@@ -68,6 +68,7 @@ public class PlayerInventory2 : MonoBehaviour
         {
             heldObject = closeCollider.gameObject;
             closeCollider.gameObject.SetActive(false);
+            SFXManager.instance.PlayerPickup();
             UpdateInventoryDisplay();
         }
     }
@@ -75,11 +76,13 @@ public class PlayerInventory2 : MonoBehaviour
     void AttemptPlace()
     {
         BoxCollider2D collider = heldObject.GetComponent<BoxCollider2D>();
-        if (LevelManager.TargetSpaceOpen((Vector2)(mover.GetForwardPoint()) + collider.offset, collider.size))
+        // collider.size as last argument
+        if (LevelManager.TargetSpaceOpen((Vector2)(mover.GetForwardPoint()) + collider.offset, new Vector2(0.1f, 0.1f)))
         {
             heldObject.transform.position = mover.GetForwardPoint();
             heldObject.SetActive(true);
             heldObject = null;
+            SFXManager.instance.PlayerPlace();
             UpdateInventoryDisplay();
         }
     }
@@ -87,12 +90,13 @@ public class PlayerInventory2 : MonoBehaviour
     void AttemptThrow()
     {
         BoxCollider2D collider = heldObject.GetComponent<BoxCollider2D>();
-        if (LevelManager.TargetSpaceOpen((Vector2)(mover.GetForwardPoint()) + collider.offset, collider.size))
+        if (LevelManager.TargetSpaceOpen((Vector2)(mover.GetForwardPoint()) + collider.offset, new Vector2(0.1f, 0.1f)))
         {
             heldObject.transform.position = mover.GetForwardPoint();
             heldObject.SetActive(true);
             heldObject.GetComponent<Rigidbody2D>().velocity = mover.GetForwardDirection() * throwVelocity;
             heldObject = null;
+            SFXManager.instance.PlayerThrow();
             UpdateInventoryDisplay();
         }
     }
@@ -155,7 +159,11 @@ public class PlayerInventory2 : MonoBehaviour
 
     public void DestroyHeldObject()
     {
-        heldObject = null;
+        if (heldObject != null)
+        {
+            heldObject.GetComponent<BoxCollisions>().DestroyBox(false);
+            heldObject = null;
+        }
         UpdateInventoryDisplay();
     }
 
